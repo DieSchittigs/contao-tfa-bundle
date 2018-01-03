@@ -1,0 +1,15 @@
+{
+    "name": "dieschittigs/contao-tfa-bundle",
+    "description": "Adds two-factor authentication to Contao 4 backend users",
+    "type": "contao-bundle",
+    "require": {
+        "robthree/twofactorauth": "^1.6"
+    },
+    "license": "LGPL-3.0",
+    "authors": [
+        {
+            "name": "Christopher Mühl",
+            "email": "christopher@dieschittigs.de"
+        }
+    ]
+}
