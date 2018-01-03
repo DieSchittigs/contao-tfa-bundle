@@ -6,10 +6,18 @@
         "robthree/twofactorauth": "^1.6"
     },
     "license": "LGPL-3.0",
+    "autoload": {
+        "psr-4": {
+            "DieSchittigs\\TwoFactorAuth\\": "src/"
+        }
+    },
     "authors": [
         {
             "name": "Christopher Mühl",
             "email": "christopher@dieschittigs.de"
         }
-    ]
+    ],
+    "extra": {
+     "contao-manager-plugin": "DieSchittigs\\TwoFactorAuthBundle\\ContaoManager\\Plugin"
+    }
 }
