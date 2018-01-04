@@ -2,8 +2,6 @@
 
 namespace Contao;
 
-use RobThree\Auth\TwoFactorAuth;
-
 class TwoFactorWidget extends \Widget
 {
 	/**

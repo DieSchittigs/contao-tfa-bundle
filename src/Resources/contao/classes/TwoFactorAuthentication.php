@@ -6,13 +6,6 @@ use RobThree\Auth\TwoFactorAuth;
 
 class TwoFactorAuthentication extends \Backend
 {
-    public function __construct()
-    {
-        $this->import('BackendUser', 'user');
-
-        parent::__construct();
-    }
-
     public static function generateAuthenticator()
     {
         $title = $GLOBALS['TL_CONFIG']['websiteTitle'];
