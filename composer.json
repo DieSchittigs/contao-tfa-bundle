@@ -15,7 +15,10 @@
     "autoload": {
         "psr-4": {
             "DieSchittigs\\TwoFactorAuth\\": "src/"
-        }
+        },
+        "classmap": [
+            "src/Resources/contao/classes/"
+        ]
     },
     "extra": {
         "contao-manager-plugin": "DieSchittigs\\TwoFactorAuth\\ContaoManager\\Plugin"

@@ -1,0 +1,17 @@
+services:
+  dieschittigs.twofactor.listener.interactive_login:
+    class: DieSchittigs\TwoFactorAuth\EventListener\InteractiveLoginListener
+    arguments:
+      - "@contao.framework"
+      - "@session"
+    tags:
+      - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveLogin, priority: 10 }
+      
+  dieschittigs.twofactor.listener.request:
+    class: DieSchittigs\TwoFactorAuth\EventListener\RequestListener
+    arguments:
+      - "@contao.framework"
+      - "@session"
+      - "@security.token_storage"
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: -10 }
