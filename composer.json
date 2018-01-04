@@ -11,7 +11,7 @@
             "email": "christopher@dieschittigs.de"
         }
     ],
-    "license": "LGPL-3.0+",
+    "license": "LGPL-3.0",
     "autoload": {
         "psr-4": {
             "DieSchittigs\\TwoFactorAuth\\": "src/"
