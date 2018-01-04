@@ -46,10 +46,14 @@ class RequestListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
+        $this->initializeFramework();
+
         // If the session isn't running, or a 2FA token isn't required, return.
-        if (!$this->session->isStarted() || !$this->session->get('2fa_required')) {
+        if (!$this->session->isStarted() || !$this->session->get('2fa_required') || TL_MODE == 'FE') {
             return;
         }
+
+        $template = new BackendTemplate('be_2fa_loginform');
 
         if ($_POST['FORM_SUBMIT'] == 'tl_login') {
             $secret = $this->tokenStorage->getToken()->getUser()->tfaSecret;
@@ -58,12 +62,10 @@ class RequestListener
             if (TwoFactorAuthentication::verifyCode($secret, $code)) {
                 $this->session->set('2fa_required', false);
                 return;
+            } else {
+                $template->incorrect = $GLOBALS['TL_LANG']['tl_user']['tfa_exception_invalid'];
             }
         }
-
-        $this->initializeFramework();
-
-        $template = new BackendTemplate('be_2fa_loginform');
         
 		$template->theme = \Backend::getTheme();
 		$template->base = \Environment::get('base');
@@ -79,10 +81,10 @@ class RequestListener
         $template->jsDisabled = $GLOBALS['TL_LANG']['MSC']['jsDisabled'];
         
 		$template->title = \StringUtil::specialchars(sprintf($GLOBALS['TL_LANG']['MSC']['loginTo'], \Config::get('websiteTitle')));
-        $template->headline = 'Zwei-Faktor-Authentifizierung';
-        $template->feLink = $GLOBALS['TL_LANG']['MSC']['abort'];
-        $template->f2a_code = 'Code';
-    
+        $template->headline = $GLOBALS['TL_LANG']['tl_user']['tfa_title'];
+        $template->feLink = $GLOBALS['TL_LANG']['MSC']['goBack'];
+        $template->f2a_code = $GLOBALS['TL_LANG']['MSC']['tfaCode'];
+     
         $event->setResponse(Response::create($template->parse()));
     }
 }
