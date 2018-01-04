@@ -1,12 +1,11 @@
 <?php
 
+// Add the tfaSecret field to the tl_user table.
 $GLOBALS['TL_DCA']['tl_user']['fields']['tfaSecret'] = [
-    'label'   => '2FA Secret',
-    'exclude' => true,
-    'sql'     => "varchar(64) NOT NULL default ''"
+    'label'             => &$GLOBALS['TL_LANG']['tl_user']['tfaSecret'],
+    'inputType'         => 'tfaSecret',
+    'sql'               => "varchar(64) NOT NULL default ''",
 ];
 
-$GLOBALS['TL_DCA']['tl_user']['palettes']['admin'] .= ',tfaSecret';
-
-var_dump($GLOBALS['TL_DCA']['tl_user']);
-die();
+// Add the tfaSecret field to the login palette
+$GLOBALS['TL_DCA']['tl_user']['palettes']['login'] .= ';{tfa_title},tfaSecret';

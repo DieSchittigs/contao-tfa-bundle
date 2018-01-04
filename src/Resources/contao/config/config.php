@@ -1,5 +1,3 @@
 <?php
 
-
-var_dump("hi");
-die();
+$GLOBALS['BE_FFL']['tfaSecret'] = 'TwoFactorWidget';
