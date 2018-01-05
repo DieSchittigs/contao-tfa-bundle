@@ -5,7 +5,7 @@
 
             <div class="w50 widget m12">
                 <div id="ctrl_useCE" class="tl_checkbox_single_container">
-                    <input type="checkbox" name="deactivate_tfa" id="opt_deactivate_tfa" class="tl_checkbox" value="1">
+                    <input type="checkbox" name="deactivate_tfa" id="opt_deactivate_tfa" class="tl_checkbox" value="1" <?php if ($this->checked): ?> checked <?php endif; ?>>
                     <label for="opt_deactivate_tfa"><?= $GLOBALS['TL_LANG']['tl_user']['tfa_deactivate'] ?></label>
                 </div>
                 <p class="tl_help tl_tip" title><?= $GLOBALS['TL_LANG']['tl_user']['tfa_deactivate_explanation'] ?></p>

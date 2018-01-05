@@ -35,9 +35,10 @@ class TwoFactorWidget extends \Widget
     protected function validator($secret)
     {
         $code = $this->Input->post('tfaToken');
+        $this->checked = $this->Input->post('deactivate_tfa');
 
         // Skip the validation if the user has 2FA enabled and doesn't want to deactivate it.
-        if ($this->user->tfaSecret && !$this->Input->post('deactivate_tfa')) {
+        if ($this->user->tfaSecret && !$this->checked) {
             return;
         }
 
@@ -62,14 +63,6 @@ class TwoFactorWidget extends \Widget
     /**
      * {@inheritdoc}
      */
-    public function generate()
-    {
-        return $this->parse();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function parse($attributes = null)
     {
         $auth = TwoFactorFactory::generate();
@@ -89,5 +82,13 @@ class TwoFactorWidget extends \Widget
         $this->tfaEnabled = (bool) $this->user->tfaSecret;
 
         return parent::parse($attributes);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function generate()
+    {
+        return $this->parse();
     }
 }
