@@ -6,9 +6,9 @@ use Contao\CoreBundle\Framework\ContaoFrameworkInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use DieSchittigs\TwoFactorAuth\TwoFactorFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Contao\TwoFactorAuthTemplate;
-use RobThree\Auth\TwoFactorAuth;
 
 class RequestListener
 {
@@ -72,8 +72,7 @@ class RequestListener
             $secret = $this->tokenStorage->getToken()->getUser()->tfaSecret;
             $code = \Input::post('2fa_code');
             
-            $auth = new TwoFactorAuth;
-            if ($auth->verifyCode($secret, $code)) {
+            if (TwoFactorFactory::verifyCode($secret, $code)) {
                 $this->session->set('2fa_required', false);
                 return;
             } else {

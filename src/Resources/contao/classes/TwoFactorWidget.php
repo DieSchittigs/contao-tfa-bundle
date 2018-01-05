@@ -2,8 +2,7 @@
 
 namespace Contao;
 
-use RobThree\Auth\TwoFactorAuth;
-
+use DieSchittigs\TwoFactorAuth\TwoFactorFactory;
 
 class TwoFactorWidget extends \Widget
 {
@@ -53,8 +52,7 @@ class TwoFactorWidget extends \Widget
         }
 
         // Verify the entered code with the secret.
-        $auth = new TwoFactorAuth;
-        if (!$auth->verifyCode($secret, $code)) {
+        if (!TwoFactorFactory::verifyCode($secret, $code)) {
             $this->addError($GLOBALS['TL_LANG']['tl_user']['tfa_exception_invalid']);
         }
 
@@ -74,8 +72,7 @@ class TwoFactorWidget extends \Widget
      */
     public function parse($attributes = null)
     {
-        $title = $GLOBALS['TL_CONFIG']['websiteTitle'];
-        $auth = new TwoFactorAuth($title);
+        $auth = TwoFactorFactory::generate();
 
         if ($this->user->tfaSecret) {
             // Prefer the user's saved secret.
