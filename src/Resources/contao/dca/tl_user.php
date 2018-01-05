@@ -6,7 +6,7 @@ $GLOBALS['TL_DCA']['tl_user']['fields']['tfaSecret'] = [
     'inputType'     => 'tfaSecret',
     'sql'           => "varchar(64) NOT NULL default ''",
     'save_callback' => [
-        ['TwoFactorSaveListener', 'save'],
+        ['TwoFactorSaveListener', 'saveSecret'],
     ],
 ];
 
@@ -15,9 +15,27 @@ $GLOBALS['TL_DCA']['tl_user']['palettes']['login'] .= ';{tfa_title},tfaSecret';
 
 // Add the tfaChange field to the tl_user table.
 $GLOBALS['TL_DCA']['tl_user']['fields']['tfaChange'] = [
-    'label'         => &$GLOBALS['TL_LANG']['tl_user']['tfaChange'],
-    'excluded'      => true,
-    'inputType'     => 'checkbox',
-    'filter'        => true,
-    'sql'           => "char(1) NOT NULL default ''",
+    'label'     => &$GLOBALS['TL_LANG']['tl_user']['tfaChange'],
+    'inputType' => 'checkbox',
+    'excluded'  => true,
+    'filter'    => true,
+    'sql'       => "char(1) NOT NULL default ''",
+    'eval'      => ['tl_class' => 'w50']
 ];
+
+// Add the tfaChange field to the tl_user table.
+$GLOBALS['TL_DCA']['tl_user']['fields']['tfaReset'] = [
+    'label'     => &$GLOBALS['TL_LANG']['tl_user']['tfaReset'],
+    'inputType' => 'checkbox',
+    'excluded'  => true,
+    'filter'    => true,
+    'sql'       => "char(1) NOT NULL default ''",
+    'eval'      => ['tl_class' => 'w50'],
+    'save_callback' => [
+        ['TwoFactorSaveListener', 'saveForceChangeField'],
+    ],
+];
+
+foreach ($GLOBALS['TL_DCA']['tl_user']['palettes'] as &$palette) {
+    $palette = str_replace('{admin_legend}', '{tfa_title:hide},tfaChange,tfaReset;{admin_legend}', $palette);
+}

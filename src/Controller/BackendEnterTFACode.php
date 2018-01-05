@@ -14,22 +14,12 @@ class BackendEnterTFACode extends \Backend
 
         \System::loadLanguageFile('default');
         \System::loadLanguageFile('tl_user');
+
+        $this->template = new BackendTwoFactorTemplate('be_2fa_loginform');
     }
 
-	/**
-	 * Run the controller and parse the two-factor template
-	 *
-	 * @return Symfony\Component\HttpFoundation\Response
-	 */
-    public function run()
+    protected function handleInput()
     {
-        $session = \Session::getInstance();
-        $template = new BackendTwoFactorTemplate('be_2fa_loginform');
-        
-        if (!$session->get('2fa_required')) {
-            $this->redirect('contao/main.php');
-        }
-
         if (\Input::post('FORM_SUBMIT') == 'tl_2fa_code') {
             $secret = $this->user->tfaSecret;
             $code = \Input::post('tfa_code');
@@ -39,10 +29,25 @@ class BackendEnterTFACode extends \Backend
 
                 $this->redirect('contao/main.php');
             } else {
-                $template->incorrect = $GLOBALS['TL_LANG']['tl_user']['tfa_exception_invalid'];
+                $this->template->incorrect = $GLOBALS['TL_LANG']['tl_user']['tfa_exception_invalid'];
             }
         }
+    }
+	/**
+	 * Run the controller and parse the two-factor template
+	 *
+	 * @return Symfony\Component\HttpFoundation\Response
+	 */
+    public function run()
+    {
+        $session = \Session::getInstance();
+        
+        if (!$session->get('2fa_required')) {
+            $this->redirect('contao/main.php');
+        }
 
-        return $template->getResponse();
+        $this->handleInput();
+
+        return $this->template->getResponse();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Contao;
 
-class TwoFactorSaveListener extends \Backend
+class TwoFactorFieldListener extends \Backend
 {
     /**
      * {@inheritdoc}
@@ -20,7 +20,7 @@ class TwoFactorSaveListener extends \Backend
 	 * @param string $value The secret that is trying to be saved
 	 * @return string The secret that will be persisted to the database
      */
-    public function save($value)
+    public function saveSecret($value)
     {
         // Return an empty string if the user wishes to deactivate 2FA.
         if ($this->Input->post('deactivate_tfa')) {
@@ -32,6 +32,14 @@ class TwoFactorSaveListener extends \Backend
             return $this->user->tfaSecret;
         }
 
+        return $value;
+    }
+
+    public function saveForceChangeField($value, $dataContainer)
+    {
+        var_dump($value);
+        die();
+        
         return $value;
     }
 }

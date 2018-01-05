@@ -4,7 +4,7 @@ namespace Contao;
 
 use DieSchittigs\TwoFactorAuth\TwoFactorFactory;
 
-class TwoFactorWidget extends \Widget
+class TwoFactorSecretWidget extends \Widget
 {
     /**
      * {@inheritdoc}

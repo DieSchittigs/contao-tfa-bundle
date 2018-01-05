@@ -18,7 +18,7 @@ class BackendSetupTFA extends Backend
         $this->secret = $this->auth->createSecret();
     }
 
-    protected function checkInput()
+    protected function handleInput()
     {
         if (\Input::post('tfa_secret')) {
             $this->secret = \Input::post('tfa_secret');
@@ -26,11 +26,12 @@ class BackendSetupTFA extends Backend
 
         if (\Input::post('FORM_SUBMIT') == 'tl_2fa_setup') {
             if (TwoFactorFactory::verifyCode($this->secret, \Input::post('tfa_code'))) {
-                // Save secret for user.
-
+                // Save the user's new secret.
                 $this->user->tfaSecret = $this->secret;
+                $this->user->tfaChange = '';
                 $this->user->save();
 
+                // Redirect back to backend index
                 $this->redirect('/contao/main.php');
             } else {
                 $this->template->incorrect = $GLOBALS['TL_LANG']['tl_user']['tfa_exception_invalid'];
@@ -48,6 +49,8 @@ class BackendSetupTFA extends Backend
         if (!TwoFactorFactory::tfaSetupRequired($this->user)) {
             $this->redirect('/contao/main.php');
         }
+
+        $this->handleInput();
 
         $this->template->imageUrl = $this->auth->getQrCodeImageAsDataUri($this->user->email, $this->secret, 200);
         $this->template->secret = $this->secret;

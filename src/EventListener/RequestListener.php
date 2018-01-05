@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Contao\TwoFactorAuthTemplate;
 use Contao\Controller;
 use Contao\Session;
+use Contao\BackendUser;
 
 class RequestListener
 {
@@ -57,9 +58,13 @@ class RequestListener
         }
 
         // Force a user to set up 2FA
-        $user = $this->tokenStorage->getToken()->getUser();
-
-        if (TwoFactorFactory::tfaSetupRequired($user) && $event->getRequest()->get('_route') != 'contao_backend_set_tfa') {
+        $token = $this->tokenStorage->getToken();
+        if (!$token) {
+            return;
+        }
+        
+        $user = $token->getUser();
+        if ($user instanceof BackendUser && TwoFactorFactory::tfaSetupRequired($user) && $event->getRequest()->get('_route') != 'contao_backend_set_tfa') {
             Controller::redirect('/contao/tfa/set');
         }
     }
