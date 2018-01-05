@@ -1,14 +1,17 @@
 <div>
     <div class="widget">
         <?php if ($this->tfaEnabled): ?>
-            <p class="tl_info"><?= $GLOBALS['TL_LANG']['MOD']['tfa_activated']; ?></p>
+            <p class="tl_info"><?= $GLOBALS['TL_LANG']['tl_user']['tfa_activated'] ?></p>
 
             <div class="w50 widget cbx">
-                <div id="ctrl_useCE" class="tl_checkbox_single_container"><input type="hidden" name="useCE" value=""><input type="checkbox" name="useCE" id="opt_useCE_0" class="tl_checkbox" value="1" checked="" onfocus="Backend.getScrollOffset()"> <label for="opt_useCE_0">Zwei-Faktor-Authentifizierung deaktivieren</label></div>
-                <p class="tl_help tl_tip" title="">Zur Bestätigung bitte rechts den aktuellen Code eingeben.</p>
+                <div id="ctrl_useCE" class="tl_checkbox_single_container">
+                    <input type="checkbox" name="deactivate_tfa" id="opt_deactivate_tfa" class="tl_checkbox" value="1">
+                    <label for="opt_deactivate_tfa"><?= $GLOBALS['TL_LANG']['tl_user']['tfa_deactivate'] ?></label>
+                </div>
+                <p class="tl_help tl_tip" title><?= $GLOBALS['TL_LANG']['tl_user']['tfa_deactivate_explanation'] ?></p>
             </div>
         <?php else: ?>
-            <p class="tl_info"><?= $GLOBALS['TL_LANG']['MOD']['tfa_explanation']; ?></p>
+            <p class="tl_info"><?= $GLOBALS['TL_LANG']['tl_user']['tfa_explanation'] ?></p>
 
             <div class="w50" style="height:auto;text-align:center;">
                 <img src="<?= $this->imageUrl ?>">
@@ -16,10 +19,10 @@
             </div>
         <?php endif; ?>
 
-        <div class="w50">
+        <div class="w50"> 
             <h3>
                 <label for="ctrl_tfa_token" <?php if ($this->hasErrors()): ?> class="error"<?php endif; ?>>
-                    <?= $GLOBALS['TL_LANG']['MOD']['tfa_token']; ?>
+                    <?= $GLOBALS['TL_LANG']['tl_user']['tfa_token'] ?>
                 </label>
             </h3>
             <input class="tl_text" id="ctrl_tfa_token" name="tfaToken">
