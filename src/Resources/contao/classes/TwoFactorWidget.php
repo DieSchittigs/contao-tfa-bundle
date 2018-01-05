@@ -7,21 +7,32 @@ use RobThree\Auth\TwoFactorAuth;
 
 class TwoFactorWidget extends \Widget
 {
-	/**
-	 * Submit user input
-	 * @var boolean
-	 */
+    /**
+     * {@inheritdoc}
+     */
     protected $blnSubmitInput = true;
     
+    /**
+     * {@inheritdoc}
+     */
     protected $strTemplate = 'be_2fa_field';
 
-    public function __construct($arrAttributes = null)
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct($attributes = null)
     {
         $this->import('BackendUser', 'user');
 
-        parent::__construct($arrAttributes);
+        parent::__construct($attributes);
     }
 
+	/**
+	 * Validate the code the user has entered based on the secret
+	 *
+	 * @param mixed $secret The user input
+	 * @return mixed The original or modified user input
+	 */
     protected function validator($secret)
     {
         $code = $this->Input->post('tfaToken');
@@ -50,7 +61,18 @@ class TwoFactorWidget extends \Widget
         return parent::validator($secret);
     }
 
-    public function parse()
+    /**
+     * {@inheritdoc}
+     */
+    public function generate()
+    {
+        return $this->parse();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function parse($attributes = null)
     {
         $title = $GLOBALS['TL_CONFIG']['websiteTitle'];
         $auth = new TwoFactorAuth($title);
@@ -69,11 +91,6 @@ class TwoFactorWidget extends \Widget
         $this->imageUrl = $auth->getQrCodeImageAsDataUri($this->user->email, $this->secret, 200);
         $this->tfaEnabled = (bool) $this->user->tfaSecret;
 
-        return parent::parse();
-    }
-
-    public function generate()
-    {
-        return $this->parse();
+        return parent::parse($attributes);
     }
 }

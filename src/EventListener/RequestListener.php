@@ -27,6 +27,13 @@ class RequestListener
      */
     private $tokenStorage;
 
+    /**
+     * Initializes the listener
+     * 
+	 * @param ContaoFrameworkInterface $framework A framework instance
+	 * @param SessionInterface $session The current session object
+	 * @param TokenStorageInterface $tokenStorage The current token storage
+     */
     public function __construct(ContaoFrameworkInterface $framework, SessionInterface $session, TokenStorageInterface $tokenStorage)
     {
         $this->framework = $framework;
@@ -34,6 +41,9 @@ class RequestListener
         $this->tokenStorage = $tokenStorage;
     }
 
+    /**
+     * Initializes the framework and languages for correct template rendering
+     */
     private function initializeFramework()
     {
         $this->framework->initialize();
@@ -42,6 +52,11 @@ class RequestListener
         \System::loadLanguageFile('tl_user');
     }
 
+    /**
+     * Displays a 2FA template when a user still needs to authenticate himself
+     * 
+     * @param GetResponseEvent $event The event the listener responds to
+     */
     public function onKernelRequest(GetResponseEvent $event)
     {
         $this->initializeFramework();

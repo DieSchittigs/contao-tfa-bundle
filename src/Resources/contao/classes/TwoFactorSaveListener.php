@@ -4,6 +4,9 @@ namespace Contao;
 
 class TwoFactorSaveListener extends \Backend
 {
+    /**
+     * {@inheritdoc}
+     */
     public function __construct()
     {
         $this->import('BackendUser', 'user');
@@ -11,6 +14,12 @@ class TwoFactorSaveListener extends \Backend
         parent::__construct();
     }
 
+    /**
+     * Callback that modifies the secret before saving
+     * 
+	 * @param string $value The secret that is trying to be saved
+	 * @return string The secret that will be persisted to the database
+     */
     public function save($value)
     {
         // Return an empty string if the user wishes to deactivate 2FA.

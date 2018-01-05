@@ -4,18 +4,17 @@ namespace Contao;
 
 class TwoFactorAuthTemplate extends BackendTemplate
 {
+    /**
+     * {@inheritdoc}
+     */
     public function parse()
     {
 		$this->theme = \Backend::getTheme();
 		$this->base = \Environment::get('base');
 		$this->language = $GLOBALS['TL_LANGUAGE'];
 		$this->messages = \Message::generate();
-		$this->languages = \System::getLanguages(true); // backwards compatibility
 		$this->charset = \Config::get('characterSet');
 		$this->action = ampersand(\Environment::get('request'));
-		$this->userLanguage = $GLOBALS['TL_LANG']['tl_user']['language'][0];
-		$this->curLanguage = \Input::post('language') ?: str_replace('-', '_', $GLOBALS['TL_LANGUAGE']);
-		$this->curUsername = \Input::post('username') ?: '';
 		$this->loginButton = \StringUtil::specialchars($GLOBALS['TL_LANG']['MSC']['continue']);
         $this->jsDisabled = $GLOBALS['TL_LANG']['MSC']['jsDisabled'];
         

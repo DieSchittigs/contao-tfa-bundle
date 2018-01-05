@@ -19,12 +19,23 @@ class InteractiveLoginListener
      */
     private $session;
 
+    /**
+     * Initializes the listener
+     * 
+	 * @param ContaoFrameworkInterface $framework A framework instance
+	 * @param SessionInterface $session The current session object
+     */
     public function __construct(ContaoFrameworkInterface $framework, SessionInterface $session)
     {
         $this->framework = $framework;
         $this->session = $session;
     }
 
+    /**
+     * Sets a session variable for users that have 2FA enabled after login
+     * 
+     * @param InteractiveLoginEvent $event The event this listener responds to
+     */
     public function onInteractiveLogin(InteractiveLoginEvent $event)
     {
         $user = $event->getAuthenticationToken()->getUser();
