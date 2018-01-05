@@ -37,11 +37,15 @@
     <main id="main">
       <form action="<?= $this->action ?>" class="tl_login_form" method="post">
         <div class="formbody">
-          <input type="hidden" name="FORM_SUBMIT" value="tl_2fa_code">
+          <input type="hidden" name="FORM_SUBMIT" value="tl_2fa_setup">
           <input type="hidden" name="REQUEST_TOKEN" value="<?= REQUEST_TOKEN ?>">
-          <h1><?= $this->headline ?></h1>
+          <div class="widget" style="text-align:center;">
+            <img src="<?= $this->imageUrl ?>">
+            <input type="text" name="tfa_secret" value="<?= $this->secret ?>">
+            <p class="tl_info">Bitte scannen Sie den QR-Code mit einer kompatiblen App und geben Sie dann den generierten Code ein.</p>
+          </div>
           <div class="widget">
-            <input type="text" name="2fa_code" id="tfa_code" class="tl_text" autocapitalize="off" placeholder="<?= $this->f2a_code ?>" required>
+            <input type="text" name="tfa_code" id="2fa_code" class="tl_text" autocapitalize="off" placeholder="<?= $this->f2a_code ?>" required>
             <?php if ($this->incorrect): ?> <p style="color:#c33;"><?= $this->incorrect ?></p> <?php endif; ?>
           </div>
           <div class="submit_container cf">

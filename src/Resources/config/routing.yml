@@ -1,0 +1,13 @@
+contao_backend_enter_tfa_code:
+  path: /contao/tfa
+  controller: DieSchittigs\TwoFactorAuth\Controller\BackendController::enterCode
+  defaults:
+    _scope: backend
+    _token_check: true
+
+contao_backend_set_tfa:
+  path: /contao/tfa/set
+  controller: DieSchittigs\TwoFactorAuth\Controller\BackendController::setupTFA
+  defaults:
+    _scope: backend
+    _token_check: true

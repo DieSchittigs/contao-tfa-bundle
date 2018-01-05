@@ -2,13 +2,14 @@
 
 namespace DieSchittigs\TwoFactorAuth\EventListener;
 
-use Contao\CoreBundle\Framework\ContaoFrameworkInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Contao\CoreBundle\Framework\ContaoFrameworkInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use DieSchittigs\TwoFactorAuth\TwoFactorFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Contao\TwoFactorAuthTemplate;
+use Contao\Controller;
+use Contao\Session;
 
 class RequestListener
 {
@@ -16,11 +17,6 @@ class RequestListener
      * @var ContaoFrameworkInterface
      */
     private $framework;
-
-    /**
-     * @var SessionInterface
-     */
-    private $session;
 
     /**
      * @var TokenStorageInterface
@@ -31,25 +27,12 @@ class RequestListener
      * Initializes the listener
      * 
 	 * @param ContaoFrameworkInterface $framework A framework instance
-	 * @param SessionInterface $session The current session object
 	 * @param TokenStorageInterface $tokenStorage The current token storage
      */
-    public function __construct(ContaoFrameworkInterface $framework, SessionInterface $session, TokenStorageInterface $tokenStorage)
+    public function __construct(ContaoFrameworkInterface $framework, TokenStorageInterface $tokenStorage)
     {
         $this->framework = $framework;
-        $this->session = $session;
         $this->tokenStorage = $tokenStorage;
-    }
-
-    /**
-     * Initializes the framework and languages for correct template rendering
-     */
-    private function initializeFramework()
-    {
-        $this->framework->initialize();
-
-        \System::loadLanguageFile('default');
-        \System::loadLanguageFile('tl_user');
     }
 
     /**
@@ -59,27 +42,25 @@ class RequestListener
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $this->initializeFramework();
-
-        // If the session isn't running, or a 2FA token isn't required, return.
-        if (!$this->session->isStarted() || !$this->session->get('2fa_required') || TL_MODE == 'FE') {
+        $this->framework->initialize();
+        
+        // Don't run if we are in Frontend mode.
+        if (TL_MODE == 'FE') {
             return;
         }
 
-        $template = new TwoFactorAuthTemplate('be_2fa_loginform');
+        $session = Session::getInstance();
 
-        if ($_POST['FORM_SUBMIT'] == 'tl_login') {
-            $secret = $this->tokenStorage->getToken()->getUser()->tfaSecret;
-            $code = \Input::post('2fa_code');
-            
-            if (TwoFactorFactory::verifyCode($secret, $code)) {
-                $this->session->set('2fa_required', false);
-                return;
-            } else {
-                $template->incorrect = $GLOBALS['TL_LANG']['tl_user']['tfa_exception_invalid'];
-            }
+        // Force a user to enter his code
+        if ($session->get('2fa_required') && $event->getRequest()->get('_route') != 'contao_backend_enter_tfa_code') {
+            Controller::redirect('/contao/tfa');
         }
-             
-        $event->setResponse(Response::create($template->parse()));
+
+        // Force a user to set up 2FA
+        $user = $this->tokenStorage->getToken()->getUser();
+
+        if (TwoFactorFactory::tfaSetupRequired($user) && $event->getRequest()->get('_route') != 'contao_backend_set_tfa') {
+            Controller::redirect('/contao/tfa/set');
+        }
     }
 }

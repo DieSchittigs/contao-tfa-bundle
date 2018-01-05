@@ -79,7 +79,7 @@ class TwoFactorWidget extends \Widget
         }
 
         $this->imageUrl = $auth->getQrCodeImageAsDataUri($this->user->email, $this->secret, 200);
-        $this->tfaEnabled = (bool) $this->user->tfaSecret;
+        $this->tfaEnabled = strlen($this->user->tfaSecret) > 0;
 
         return parent::parse($attributes);
     }
