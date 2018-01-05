@@ -1,9 +1,9 @@
 <div>
-    <div class="widget">
+    <div class="widget m12">
         <?php if ($this->tfaEnabled): ?>
             <p class="tl_info"><?= $GLOBALS['TL_LANG']['tl_user']['tfa_activated'] ?></p>
 
-            <div class="w50 widget m12">
+            <div class="w50 widget">
                 <div id="ctrl_useCE" class="tl_checkbox_single_container">
                     <input type="checkbox" name="deactivate_tfa" id="opt_deactivate_tfa" class="tl_checkbox" value="1" <?php if ($this->checked): ?> checked <?php endif; ?>>
                     <label for="opt_deactivate_tfa"><?= $GLOBALS['TL_LANG']['tl_user']['tfa_deactivate'] ?></label>
