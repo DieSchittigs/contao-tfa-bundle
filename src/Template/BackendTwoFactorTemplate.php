@@ -6,6 +6,9 @@ use Contao\BackendTemplate;
 
 class BackendTwoFactorTemplate extends BackendTemplate
 {
+    /**
+     * {@inheritdoc}
+     */
     public function __construct($templateName = '')
     {
         parent::__construct($templateName);
@@ -14,6 +17,9 @@ class BackendTwoFactorTemplate extends BackendTemplate
         \System::loadLanguageFile('tl_user');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function parse($arguments = null)
     {
         $this->theme = \Backend::getTheme();

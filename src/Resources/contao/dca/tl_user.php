@@ -6,7 +6,7 @@ $GLOBALS['TL_DCA']['tl_user']['fields']['tfaSecret'] = [
     'inputType'     => 'tfaSecret',
     'sql'           => "varchar(64) NOT NULL default ''",
     'save_callback' => [
-        ['TwoFactorSaveListener', 'saveSecret'],
+        ['TwoFactorFieldListener', 'saveSecret'],
     ],
 ];
 
@@ -32,7 +32,7 @@ $GLOBALS['TL_DCA']['tl_user']['fields']['tfaReset'] = [
     'sql'       => "char(1) NOT NULL default ''",
     'eval'      => ['tl_class' => 'w50'],
     'save_callback' => [
-        ['TwoFactorSaveListener', 'saveForceChangeField'],
+        ['TwoFactorFieldListener', 'saveForceChangeField'],
     ],
 ];
 

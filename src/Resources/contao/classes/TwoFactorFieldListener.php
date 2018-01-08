@@ -10,6 +10,7 @@ class TwoFactorFieldListener extends \Backend
     public function __construct()
     {
         $this->import('BackendUser', 'user');
+        $this->import('Database', 'database');
 
         parent::__construct();
     }
@@ -35,11 +36,20 @@ class TwoFactorFieldListener extends \Backend
         return $value;
     }
 
-    public function saveForceChangeField($value, $dataContainer)
+    /**
+     * Resets the user's 2FA secret if the reset checkbox was checked
+     * 
+	 * @param mixed $value The value of the checkbox
+	 * @param DataContainer $value The data container used to save
+	 * @return null
+     */
+    public function saveForceChangeField($value, DataContainer $dc)
     {
-        var_dump($value);
-        die();
-        
-        return $value;
+        if ($value) {
+            $this->database->prepare("UPDATE tl_user SET tfaSecret='' WHERE id=?")
+                ->execute($dc->id);
+        }
+
+        return null;
     }
 }

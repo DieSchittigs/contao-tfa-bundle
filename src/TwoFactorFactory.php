@@ -28,7 +28,7 @@ class TwoFactorFactory
      */
     public static function verifyCode($secret, $code)
     {
-        $discrepancy = (int) $GLOBALS['TL_CONFIG']['tfaTOTPdiscrepancy'];
+        $discrepancy = (int) \Config::get('tfaTOTPdiscrepancy');
 
         if ($discrepancy < 0) {
             // Make sure the discrepancy is positive, otherwise we're stuck in an infinite loop.
@@ -39,9 +39,14 @@ class TwoFactorFactory
         return $auth->verifyCode($secret, $code, $discrepancy);
     }
 
+    /**
+     * Checks if a user should be redirected to the 2FA setup form
+     * 
+     * @return boolean
+     */
     public static function tfaSetupRequired(BackendUser $user)
     {
-        $forceTFA = $GLOBALS['BE_FFL']['tfaSecret'];
+        $forceTFA = \Config::get('forceTFA');
 
         return !$user->pwChange && ($user->tfaChange || (!$user->tfaSecret && $forceTFA));
     }

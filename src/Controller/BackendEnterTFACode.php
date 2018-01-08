@@ -7,6 +7,9 @@ use DieSchittigs\TwoFactorAuth\Template\BackendTwoFactorTemplate;
 
 class BackendEnterTFACode extends \Backend
 {
+    /**
+     * {@inheritdoc}
+     */
     public function __construct()
     {
         $this->import('BackendUser', 'user');
@@ -18,6 +21,9 @@ class BackendEnterTFACode extends \Backend
         $this->template = new BackendTwoFactorTemplate('be_2fa_loginform');
     }
 
+    /**
+     * Handles the input of the code form
+     */
     protected function handleInput()
     {
         if (\Input::post('FORM_SUBMIT') == 'tl_2fa_code') {
@@ -33,6 +39,7 @@ class BackendEnterTFACode extends \Backend
             }
         }
     }
+
 	/**
 	 * Run the controller and parse the two-factor template
 	 *

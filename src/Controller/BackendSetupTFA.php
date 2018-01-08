@@ -8,6 +8,9 @@ use Contao\Backend;
 
 class BackendSetupTFA extends Backend
 {
+    /**
+     * {@inheritdoc}
+     */
     public function __construct()
     {
         $this->import('BackendUser', 'user');
@@ -18,6 +21,9 @@ class BackendSetupTFA extends Backend
         $this->secret = $this->auth->createSecret();
     }
 
+    /**
+     * Handles the input of the setup form and sets the user's new 2FA secret
+     */
     protected function handleInput()
     {
         if (\Input::post('tfa_secret')) {
