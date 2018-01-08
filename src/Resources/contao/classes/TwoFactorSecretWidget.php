@@ -37,13 +37,8 @@ class TwoFactorSecretWidget extends \Widget
         $code = $this->Input->post('tfaToken');
         $this->checked = $this->Input->post('deactivate_tfa');
 
-        // Skip the validation if the user has 2FA enabled and doesn't want to deactivate it.
-        if ($this->user->tfaSecret && !$this->checked) {
-            return;
-        }
-
-        // Skip the validation if the user doesn't want to activate 2FA.
-        if (!$this->user->tfaSecret && !$code) {
+        // Skip the validation if the user hasn't entered a code.
+        if (!$code) { 
             return;
         }
 
@@ -80,6 +75,7 @@ class TwoFactorSecretWidget extends \Widget
 
         $this->imageUrl = $auth->getQrCodeImageAsDataUri($this->user->email, $this->secret, 200);
         $this->tfaEnabled = strlen($this->user->tfaSecret) > 0;
+        $this->helptext = $GLOBALS['TL_LANG']['tl_user']['tfa_help_input'];
 
         return parent::parse($attributes);
     }

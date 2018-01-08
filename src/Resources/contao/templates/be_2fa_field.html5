@@ -2,14 +2,14 @@
     <div class="widget m12">
         <?php if ($this->tfaEnabled): ?>
             <p class="tl_info"><?= $GLOBALS['TL_LANG']['tl_user']['tfa_activated'] ?></p>
+        
+            <button type="button" name="deactivateTFA" id="deactivateTFA" class="tl_submit" style="margin:12px 0" onclick="deactivate2FA()"><?= $GLOBALS['TL_LANG']['tl_user']['tfa_deactivate'] ?></button>
+            <?php if ($this->hasErrors()): ?>
+                <p class="tl_error tl_tip" title><?= $this->getErrorAsString() ?></p>
+            <?php endif; ?>
 
-            <div class="w50 widget">
-                <div id="ctrl_useCE" class="tl_checkbox_single_container">
-                    <input type="checkbox" name="deactivate_tfa" id="opt_deactivate_tfa" class="tl_checkbox" value="1" <?php if ($this->checked): ?> checked <?php endif; ?>>
-                    <label for="opt_deactivate_tfa"><?= $GLOBALS['TL_LANG']['tl_user']['tfa_deactivate'] ?></label>
-                </div>
-                <p class="tl_help tl_tip" title><?= $GLOBALS['TL_LANG']['tl_user']['tfa_deactivate_explanation'] ?></p>
-            </div>
+            <input type="hidden" id="deactivationCode" name="tfaToken">
+            <input type="hidden" name="deactivate_tfa" value="1">
         <?php else: ?>
             <p class="tl_info"><?= $GLOBALS['TL_LANG']['tl_user']['tfa_explanation'] ?></p>
 
@@ -17,19 +17,29 @@
                 <img src="<?= $this->imageUrl ?>">
                 <input type="hidden" name="tfaSecret" value="<?= $this->secret ?>">
             </div>
+
+            <div class="w50"> 
+                <h3>
+                    <label for="ctrl_tfa_token" <?php if ($this->hasErrors()): ?> class="error"<?php endif; ?>>
+                        <?= $GLOBALS['TL_LANG']['tl_user']['tfa_token'] ?>
+                    </label>
+                </h3>
+                <input class="tl_text" id="ctrl_tfa_token" name="tfaToken">
+                <?php if ($this->hasErrors()): ?>
+                    <p class="tl_error tl_tip" title><?= $this->getErrorAsString() ?></p>
+                <?php endif; ?>
+            </div>
         <?php endif; ?>
-
-        <div class="w50"> 
-            <h3>
-                <label for="ctrl_tfa_token" <?php if ($this->hasErrors()): ?> class="error"<?php endif; ?>>
-                    <?= $GLOBALS['TL_LANG']['tl_user']['tfa_token'] ?>
-                </label>
-            </h3>
-            <input class="tl_text" id="ctrl_tfa_token" name="tfaToken">
-            <?php if ($this->hasErrors()): ?>
-                <p class="tl_error tl_tip" title><?= $this->getErrorAsString() ?></p>
-            <?php endif; ?>
-        </div>
     </div>
-
 </div>
+
+<script>
+function deactivate2FA() {
+    var code = window.prompt('<?= $this->helptext ?>');
+
+    if (code) {
+        document.getElementById("deactivationCode").value = code;
+        document.getElementById("tl_user").submit();
+    }
+}
+</script>

@@ -3,6 +3,7 @@
 namespace DieSchittigs\TwoFactorAuth\EventListener;
 
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Contao\User;
 
 class InteractiveLoginListener
 {

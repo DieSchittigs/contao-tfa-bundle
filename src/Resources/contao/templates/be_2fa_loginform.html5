@@ -41,8 +41,7 @@
           <input type="hidden" name="REQUEST_TOKEN" value="<?= REQUEST_TOKEN ?>">
           <h1><?= $this->headline ?></h1>
           <div class="widget">
-            <input type="text" name="2fa_code" id="tfa_code" class="tl_text" autocapitalize="off" placeholder="<?= $this->f2a_code ?>" required>
-            <?php if ($this->incorrect): ?> <p style="color:#c33;"><?= $this->incorrect ?></p> <?php endif; ?>
+            <input type="text" name="tfa_code" id="tfa_code" class="tl_text" autocapitalize="off" placeholder="<?= $this->f2a_code ?>" required>
           </div>
           <div class="submit_container cf">
             <button type="submit" name="login" id="login" class="tl_submit"><?= $this->loginButton ?></button>

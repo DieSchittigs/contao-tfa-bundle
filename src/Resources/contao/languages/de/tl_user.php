@@ -12,8 +12,9 @@ $GLOBALS['TL_LANG']['tl_user']['tfaChange'][1] = 'Zwingt den Benutzer, seine Zwe
 $GLOBALS['TL_LANG']['tl_user']['tfaReset'][0] = 'Zwei-Faktor-Einstellung zurücksetzen';
 $GLOBALS['TL_LANG']['tl_user']['tfaReset'][1] = 'Setzt die Einstellungen des Nutzers zurück und entfernt die Zwei-Faktor-Authentifizierung von seinem Account.';
 
-$GLOBALS['TL_LANG']['tl_user']['tfa_explanation'] = 'Um die Zwei-Faktor-Authentifizierung für Ihren Account zu aktivieren, scannen Sie bitte diesen QR-Code mit einer kompatiblen App wie dem <strong>Google Authenticator</strong> (verfügbar für iOS und Android) und geben Sie danach den generierten Code ein.';
+$GLOBALS['TL_LANG']['tl_user']['tfa_explanation'] = 'Bitte scannen Sie diesen QR-Code mit einer kompatiblen App wie dem <strong>Google Authenticator</strong> (<a href="https://itunes.apple.com/app/google-authenticator/id388497605" target="_blank">iOS</a>/<a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank">Android</a>) und geben Sie danach den von der App generierten Code ein.';
 $GLOBALS['TL_LANG']['tl_user']['tfa_activated'] = 'Sie haben die Zwei-Faktor-Authentifizierung bereits aktiviert. Bitte halten Sie Ihre Authenticator-App bereit, wenn Sie sich zukünftig in Contao einloggen.';
 $GLOBALS['TL_LANG']['tl_user']['tfa_token'] = 'Von App generierter Code';
+$GLOBALS['TL_LANG']['tl_user']['tfa_help_input'] = 'Bitte geben Sie den von Ihrer Authenticator App generierten Code ein.';
 
 $GLOBALS['TL_LANG']['tl_user']['tfa_code'] = 'Code';

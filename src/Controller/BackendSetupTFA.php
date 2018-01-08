@@ -40,7 +40,7 @@ class BackendSetupTFA extends Backend
                 // Redirect back to backend index
                 $this->redirect('/contao/main.php');
             } else {
-                $this->template->incorrect = $GLOBALS['TL_LANG']['tl_user']['tfa_exception_invalid'];
+                \Message::addError($GLOBALS['TL_LANG']['tl_user']['tfa_exception_invalid']);
             }
         }
     }
@@ -59,7 +59,9 @@ class BackendSetupTFA extends Backend
         $this->handleInput();
 
         $this->template->imageUrl = $this->auth->getQrCodeImageAsDataUri($this->user->email, $this->secret, 200);
-        $this->template->secret = $this->secret;
+        $this->template->secret   = $this->secret;
+
+        \Message::addInfo($GLOBALS['TL_LANG']['tl_user']['tfa_explanation']);
 
         return $this->template->getResponse();
     }

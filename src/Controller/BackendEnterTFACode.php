@@ -19,6 +19,7 @@ class BackendEnterTFACode extends \Backend
         \System::loadLanguageFile('tl_user');
 
         $this->template = new BackendTwoFactorTemplate('be_2fa_loginform');
+        $this->session = \Session::getInstance();
     }
 
     /**
@@ -31,11 +32,11 @@ class BackendEnterTFACode extends \Backend
             $code = \Input::post('tfa_code');
             
             if (TwoFactorFactory::verifyCode($secret, $code)) {
-                $session->set('2fa_required', false);
+                $this->session->set('2fa_required', false);
 
                 $this->redirect('contao/main.php');
             } else {
-                $this->template->incorrect = $GLOBALS['TL_LANG']['tl_user']['tfa_exception_invalid'];
+                \Message::addError($GLOBALS['TL_LANG']['tl_user']['tfa_exception_invalid']);
             }
         }
     }
@@ -47,13 +48,13 @@ class BackendEnterTFACode extends \Backend
 	 */
     public function run()
     {
-        $session = \Session::getInstance();
-        
-        if (!$session->get('2fa_required')) {
+        if (!$this->session->get('2fa_required')) {
             $this->redirect('contao/main.php');
         }
 
         $this->handleInput();
+
+        \Message::addInfo($GLOBALS['TL_LANG']['tl_user']['tfa_help_input']);
 
         return $this->template->getResponse();
     }
