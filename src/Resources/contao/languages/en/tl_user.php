@@ -6,7 +6,7 @@ $GLOBALS['TL_LANG']['tl_user']['tfa_exception_invalid'] = 'The entered code is i
 $GLOBALS['TL_LANG']['tl_user']['tfa_deactivate'] = 'Deactivate Two-Factor Authentication';
 $GLOBALS['TL_LANG']['tl_user']['tfa_deactivate_explanation'] = 'To verify please type in the current code.';
 
-$GLOBALS['TL_LANG']['tl_user']['tfaChange'][0] = 'Force two-factor reset';
+$GLOBALS['TL_LANG']['tl_user']['tfaChange'][0] = 'Force Two-Factor Reset';
 $GLOBALS['TL_LANG']['tl_user']['tfaChange'][1] = 'Make the user reset their two-factor authentication upon the next login.';
 
 $GLOBALS['TL_LANG']['tl_user']['tfaReset'][0] = 'Reset Two-Factor Settings';

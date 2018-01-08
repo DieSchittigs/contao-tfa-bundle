@@ -1,6 +1,6 @@
 {
     "name": "dieschittigs/contao-tfa-bundle",
-    "description": "Adds two-factor-authentication to Contao 4 backend users",
+    "description": "Adds TOTP based Two-Factor Authentication to Contao 4 backend users",
     "type": "contao-bundle",
     "require": {
         "robthree/twofactorauth": "^1.6"
