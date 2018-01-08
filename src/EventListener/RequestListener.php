@@ -27,8 +27,8 @@ class RequestListener
     /**
      * Initializes the listener
      * 
-	 * @param ContaoFrameworkInterface $framework A framework instance
-	 * @param TokenStorageInterface $tokenStorage The current token storage
+     * @param ContaoFrameworkInterface $framework A framework instance
+     * @param TokenStorageInterface $tokenStorage The current token storage
      */
     public function __construct(ContaoFrameworkInterface $framework, TokenStorageInterface $tokenStorage)
     {

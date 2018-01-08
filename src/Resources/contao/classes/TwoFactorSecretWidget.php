@@ -26,12 +26,12 @@ class TwoFactorSecretWidget extends \Widget
         parent::__construct($attributes);
     }
 
-	/**
-	 * Validate the code the user has entered based on the secret
-	 *
-	 * @param mixed $secret The user input
-	 * @return mixed The original or modified user input
-	 */
+    /**
+     * Validate the code the user has entered based on the secret
+     *
+     * @param mixed $secret The user input
+     * @return mixed The original or modified user input
+     */
     protected function validator($secret)
     {
         $code = $this->Input->post('tfaToken');

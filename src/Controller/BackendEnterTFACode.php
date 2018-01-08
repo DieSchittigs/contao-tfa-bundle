@@ -38,11 +38,11 @@ class BackendEnterTFACode extends \Backend
         }
     }
 
-	/**
-	 * Run the controller and parse the two-factor template
-	 *
-	 * @return Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * Run the controller and parse the two-factor template
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
     public function run()
     {
         if (!$this->session->get('2fa_required')) {

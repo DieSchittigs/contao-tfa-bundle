@@ -45,11 +45,11 @@ class BackendSetupTFA extends Backend
         }
     }
 
-	/**
-	 * Run the controller and parse the two-factor template
-	 *
-	 * @return Symfony\Component\HttpFoundation\Response
-	 */
+    /**
+     * Run the controller and parse the two-factor template
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
     public function run()
     {
         if (!TwoFactorFactory::tfaSetupRequired($this->user)) {

@@ -18,8 +18,8 @@ class TwoFactorFieldListener extends \Backend
     /**
      * Callback that modifies the secret before saving
      * 
-	 * @param string $value The secret that is trying to be saved
-	 * @return string The secret that will be persisted to the database
+     * @param string $value The secret that is trying to be saved
+     * @return string The secret that will be persisted to the database
      */
     public function saveSecret($value)
     {
@@ -39,9 +39,9 @@ class TwoFactorFieldListener extends \Backend
     /**
      * Resets the user's 2FA secret if the reset checkbox was checked
      * 
-	 * @param mixed $value The value of the checkbox
-	 * @param DataContainer $value The data container used to save
-	 * @return null
+     * @param mixed $value The value of the checkbox
+     * @param DataContainer $value The data container used to save
+     * @return null
      */
     public function saveForceChangeField($value, DataContainer $dc)
     {
