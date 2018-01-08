@@ -2,6 +2,7 @@
     "name": "dieschittigs/contao-tfa-bundle",
     "description": "Adds TOTP based Two-Factor Authentication to Contao 4 backend users",
     "type": "contao-bundle",
+    "keywords": ["contao", "bundle", "contao-bundle", "contao-extension", "two-factor", "tfa", "2fa", "totp", "authentication"],
     "require": {
         "robthree/twofactorauth": "^1.6"
     },
