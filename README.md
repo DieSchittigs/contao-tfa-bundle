@@ -2,7 +2,7 @@
 
 [![Packagist](https://img.shields.io/packagist/v/dieschittigs/contao-tfa-bundle.svg?style=for-the-badge)](https://packagist.org/packages/dieschittigs/contao-tfa-bundle)
 [![Packagist](https://img.shields.io/packagist/dt/dieschittigs/contao-tfa-bundle.svg?style=for-the-badge)](https://packagist.org/packages/dieschittigs/contao-tfa-bundle)
-[![license](https://img.shields.io/github/license/dieschittigs/contao-tfa-bundle.svg?style=for-the-badge)]()
+![License](https://img.shields.io/badge/license-LGPL%20v3-blue.svg?style=for-the-badge)
 
 This bundle enables Two-Factor Authentication (TFA/2FA) via [TOTP](https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm) for Contao backend users. Users with 2FA enabled are not allowed to visit any backend page before typing in the correct access code after having logged in.
 
