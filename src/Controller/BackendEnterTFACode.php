@@ -15,9 +15,6 @@ class BackendEnterTFACode extends \Backend
         $this->import('BackendUser', 'user');
         parent::__construct();
 
-        \System::loadLanguageFile('default');
-        \System::loadLanguageFile('tl_user');
-
         $this->template = new BackendTwoFactorTemplate('be_2fa_loginform');
         $this->session = \Session::getInstance();
     }
