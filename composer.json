@@ -4,6 +4,8 @@
     "type": "contao-bundle",
     "keywords": ["contao", "bundle", "contao-bundle", "contao-extension", "two-factor", "tfa", "2fa", "totp", "authentication"],
     "require": {
+        "php": "^5.6|^7.0",
+        "contao/core-bundle": "^4.4",
         "robthree/twofactorauth": "^1.6"
     },
     "authors": [
