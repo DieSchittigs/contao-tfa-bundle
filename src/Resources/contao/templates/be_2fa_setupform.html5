@@ -48,7 +48,7 @@
                     </div>
                     <div class="submit_container cf">
                         <button type="submit" name="login" id="login" class="tl_submit"><?= $this->loginButton ?></button>
-                        <a href="<?= $this->route('contao_backend_logout') ?>" class="footer_preview"><?= $this->feLink ?> ›</a>
+                        <a href="<?= $this->route('contao_backend_login') ?>" class="footer_preview"><?= $this->feLink ?> ›</a>
                     </div>
                 </div>
             </form>

@@ -5,6 +5,7 @@ namespace DieSchittigs\TwoFactorAuth\EventListener;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Contao\CoreBundle\Framework\ContaoFrameworkInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpFoundation\RequestStack;
 use DieSchittigs\TwoFactorAuth\TwoFactorFactory;
 use Symfony\Component\HttpFoundation\Response;
 use Contao\TwoFactorAuthTemplate;
@@ -20,6 +21,11 @@ class RequestListener
     private $framework;
 
     /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
+    /**
      * @var TokenStorageInterface
      */
     private $tokenStorage;
@@ -27,12 +33,14 @@ class RequestListener
     /**
      * Initializes the listener
      * 
-     * @param ContaoFrameworkInterface $framework A framework instance
-     * @param TokenStorageInterface $tokenStorage The current token storage
+	 * @param ContaoFrameworkInterface $framework A framework instance
+	 * @param RequestStack $stack Symfony's Request Stack
+	 * @param TokenStorageInterface $tokenStorage The current token storage
      */
-    public function __construct(ContaoFrameworkInterface $framework, TokenStorageInterface $tokenStorage)
+    public function __construct(ContaoFrameworkInterface $framework, RequestStack $stack, TokenStorageInterface $tokenStorage)
     {
         $this->framework = $framework;
+        $this->requestStack = $stack;
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -49,6 +57,9 @@ class RequestListener
         if (TL_MODE == 'FE') {
             return;
         }
+        
+        $currentRoute = $this->requestStack->getCurrentRequest()->get('_route');
+        if ($currentRoute === 'contao_backend_login') return;
 
         $session = Session::getInstance();
 
