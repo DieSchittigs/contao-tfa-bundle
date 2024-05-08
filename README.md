@@ -1,3 +1,5 @@
+# ⛔️ Unmaintained ⛔️ #
+
 # Contao Two-Factor Authentication
 
 [![Packagist](https://img.shields.io/packagist/v/dieschittigs/contao-tfa-bundle.svg?style=for-the-badge)](https://packagist.org/packages/dieschittigs/contao-tfa-bundle)
