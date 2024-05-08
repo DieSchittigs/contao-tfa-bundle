@@ -1,5 +1,7 @@
 # ⛔️ Unmaintained ⛔️ #
 
+As there is a native support for contao 4.13, this bundle will not be developed further.
+
 # Contao Two-Factor Authentication
 
 [![Packagist](https://img.shields.io/packagist/v/dieschittigs/contao-tfa-bundle.svg?style=for-the-badge)](https://packagist.org/packages/dieschittigs/contao-tfa-bundle)
